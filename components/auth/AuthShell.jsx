@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Languages, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 export default function AuthShell({ children, mode }) {
-  const { t, toggleLanguage, lang } = useLanguage();
+  const { t } = useLanguage();
   const isLogin = mode === "login";
 
   return (
@@ -44,7 +45,7 @@ export default function AuthShell({ children, mode }) {
         <section className="flex min-h-dvh flex-col bg-white lg:h-full lg:min-h-0">
           <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-3 sm:px-6">
             <Link href="/" className="inline-flex min-h-11 items-center gap-2 rounded-xl px-2 text-sm font-bold text-slate-600 transition hover:text-fasai-700"><ArrowLeft size={17}/>{t.back}</Link>
-            <button type="button" onClick={toggleLanguage} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-slate-300 px-4 text-sm font-bold text-slate-700 transition hover:border-fasai-500 hover:text-fasai-700"><Languages size={17}/>{lang === "en" ? "हिंदी" : "English"}</button>
+            <LanguageSwitcher />
           </div>
           <div className="flex flex-1 items-center justify-center px-4 py-8 sm:px-8 lg:min-h-0 lg:overflow-y-auto lg:px-12 lg:py-10">
             <div className="w-full max-w-md">
