@@ -19,6 +19,19 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-bg::after { content:""; position:absolute; inset:0; z-index:-2; background:linear-gradient(90deg, rgba(244,250,240,.98) 0%, rgba(244,250,240,.88) 45%, rgba(244,250,240,.28) 100%); }
 .hero-bg::before { content:""; position:absolute; inset:0; z-index:-3; background-position:center; background-size:cover; background-image:var(--hero-image); transition: background-image .8s ease-in-out; }
 .leaflet-container { height: 100%; width: 100%; border-radius: 18px; }
+/* Keep Leaflet's internal layers from ever floating above app UI (drawer, modals, etc.) */
+.leaflet-pane,
+.leaflet-tile-pane,
+.leaflet-overlay-pane,
+.leaflet-marker-pane,
+.leaflet-tooltip-pane,
+.leaflet-popup-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control,
+.leaflet-control-container {
+  z-index: 10 !important;
+}
 @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @media (max-width: 640px) {
   .container-fasai { width: min(100% - 20px, 1180px); }
