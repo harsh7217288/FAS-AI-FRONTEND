@@ -13,32 +13,7 @@
  * ndvi/moisture: optional 0-1 / 0-100 values that bias the average color
  */
 
-function mulberry32(a) {
-  return function () {
-    a |= 0; a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-function seedFromString(s) {
-  let h = 0;
-  for (let i = 0; i < String(s).length; i++) h = (h * 31 + String(s).charCodeAt(i)) | 0;
-  return h;
-}
-
-// NDVI-style ramp: low (stressed, red/brown) -> high (healthy, deep green)
-const NDVI_RAMP = ["#8a3b1d", "#c1622b", "#e0973b", "#e9c94a", "#c7d94a", "#93c94a", "#5fb84a", "#2f9e46", "#1f7d3a"];
-// Moisture ramp: dry (tan) -> saturated (deep blue)
-const MOISTURE_RAMP = ["#d8c48a", "#c7b47a", "#a9c48f", "#7db1a8", "#4f97b6", "#3178a8", "#1f5f97", "#173f78"];
-// True color: natural earth/crop tones
-const TRUE_RAMP = ["#6b5a3a", "#7c6a3f", "#8a7a3e", "#7a8a3c", "#5f8a3e", "#3f7a3a", "#2f6a35", "#dbc36a"];
-
-function rampFor(layer) {
-  if (layer === "moisture") return MOISTURE_RAMP;
-  if (layer === "trueColor") return TRUE_RAMP;
-  return NDVI_RAMP;
-}
+import { mulberry32, seedFromString, rampFor } from "@/lib/ndvi";
 
 export default function FieldVisual({ layer = "ndvi", seed = "field", value, cols = 12, rows = 8, className = "", showLegendDot = true }) {
   const rnd = mulberry32(seedFromString(`${seed}-${layer}`));
